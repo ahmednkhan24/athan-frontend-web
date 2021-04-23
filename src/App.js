@@ -19,6 +19,7 @@ const awsApi = axios.create({
 const App = () => {
   const [publicData, setPublicData] = useState({});
   const [privateData, setPrivateData] = useState({});
+  const [createdData, setCreatedData] = useState({});
   const [jwt, setJwt] = useState("");
 
   useEffect(() => {
@@ -41,6 +42,11 @@ const App = () => {
     setPrivateData(response.data);
   };
 
+  const onClickCreateData = async () => {
+    const response = await awsApi.post("/save");
+    setCreatedData(response.data);
+  };
+
   return (
     <div>
       <h3>{JSON.stringify(publicData)}</h3>
@@ -51,6 +57,11 @@ const App = () => {
       <h3>{JSON.stringify(privateData)}</h3>
       <br />
       <button onClick={onClickAuth}>Get Private AWS Data</button>
+      <br />
+      <br />
+      <h3>{JSON.stringify(createdData)}</h3>
+      <br />
+      <button onClick={onClickCreateData}>Create Private AWS Data</button>
       <br />
       <br />
       <AmplifySignOut />
