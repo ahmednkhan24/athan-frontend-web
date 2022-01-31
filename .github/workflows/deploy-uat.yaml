@@ -26,5 +26,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Deploy to UAT
         run: |
+          git config user.name "$(git log -n 1 --pretty=format:%an)"
+          git config user.email "$(git log -n 1 --pretty=format:%ae)" 
           yarn install
           yarn deploy
