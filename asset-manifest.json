@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/athan-web/static/js/main.e33adbac.js",
+    "index.html": "/athan-web/index.html",
+    "main.e33adbac.js.map": "/athan-web/static/js/main.e33adbac.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.e33adbac.js"
+  ]
+}
