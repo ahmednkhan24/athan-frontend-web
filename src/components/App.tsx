@@ -1,11 +1,17 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import Home from './Home';
+import Content from './Content';
 
 const App: React.FC = () => {
   return (
-    <Container>
-      <h1>hello world!!!!</h1>
-    </Container>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/content" component={Content} />
+        <Route render={() => <Redirect to="/" />} />
+      </Switch>
+    </BrowserRouter>
   );
 };
 
