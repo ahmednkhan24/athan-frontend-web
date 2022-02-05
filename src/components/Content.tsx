@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
 
 const Content: React.FC = () => (
-  <div>
-    <h1>content page</h1>
+  <Container>
+    <h1>Content page</h1>
     <Link to="/home">Click to go to Home</Link>
-  </div>
+  </Container>
 );
 
 export default Content;
