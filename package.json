@@ -10,8 +10,7 @@
   "scripts": {
     "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
-    "predeoloy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "deploy": "yarn build && gh-pages -d build"
   },
   "dependencies": {
     "bootstrap": "5.1.3",
