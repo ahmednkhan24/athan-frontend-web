@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import NavBar from './Navbar';
-import Home from './Screens/Home';
-import Content from './Screens/Content';
+import NavBar from './navbar';
+import Home from './screens/Home';
+import Content from './screens/Content';
 
 const App: React.FC = () => {
   return (
