@@ -38,6 +38,7 @@ export const LocationProvider: React.FC = ({ children }) => {
   // fetch location on initial render
   useEffect(() => {
     fetchLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
