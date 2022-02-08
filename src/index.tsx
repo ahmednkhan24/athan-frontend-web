@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import { HashRouter as Router } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorkerRegistration from './worker/swRegistration';
+import { Providers } from './components/context/Providers';
 import App from './components/App';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router basename="/">
-      <App />
+      <Providers>
+        <App />
+      </Providers>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
