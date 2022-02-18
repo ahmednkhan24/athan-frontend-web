@@ -14,7 +14,13 @@ const Home: React.FC = () => {
     if (!process.env.REACT_APP_USER_PREFS_API) return;
 
     const apiResponse = await fetch(
-      `${process.env.REACT_APP_USER_PREFS_API}/`
+      `${process.env.REACT_APP_USER_PREFS_API}/`,
+      {
+        headers: {
+          Authorization: response.tokenId,
+          'Content-Type': 'application/json',
+        },
+      }
     ).then((res) => res.json());
 
     console.log('data: ', apiResponse);
