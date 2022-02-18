@@ -7,9 +7,17 @@ const Home: React.FC = () => {
   const { latitude, longitude } = useContext(LocationContext);
   const [googleData, setGoogleData] = useState({});
 
-  const googleLoginCallback = (response: any) => {
+  const googleLoginCallback = async (response: any) => {
     console.log('logged in!', response);
     setGoogleData(response);
+
+    if (!process.env.REACT_APP_USER_PREFS_API) return;
+
+    const apiResponse = await fetch(
+      `${process.env.REACT_APP_USER_PREFS_API}/`
+    ).then((res) => res.json());
+
+    console.log('data: ', apiResponse);
   };
 
   const googleLogoutCallback = () => {
