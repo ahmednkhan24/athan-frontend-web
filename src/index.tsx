@@ -1,26 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { HashRouter as Router } from 'react-router-dom';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import * as serviceWorkerRegistration from './worker/swRegistration';
-import { Providers } from './components/context/Providers';
-import App from './components/App';
+import App from './App';
+import store from './store';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Router basename="/">
-      <Providers>
-        <App />
-      </Providers>
-    </Router>
-  </React.StrictMode>,
-  document.getElementById('root')
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
 );
 
 /*
- * App to not work offline -> serviceWorkerRegistration.unregister();
- * App to work offline and load faster -> serviceWorkerRegistration.register();
- * Note this comes with some pitfalls.
- * Learn more about service workers: https://cra.link/PWA
+ * In order to detect any problems with the code and provide warnings about them,
+ * StrictMode renders components twice (in dev mode but not in production mode)
+ * https://stackoverflow.com/questions/61254372/my-react-component-is-rendering-twice-because-of-strict-mode/61897567#61897567
  */
-serviceWorkerRegistration.unregister();
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);

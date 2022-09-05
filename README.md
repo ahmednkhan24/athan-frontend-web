@@ -1,4 +1,4 @@
-# athan-web
+# athan-web (old readme)
 
 ## [UAT](https://ahmednkhan24.github.io/athan-web/)
 
