@@ -1,12 +1,13 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+// using HashRouter bc GitHub pages doesn't support the tech used by the BrowserRouter
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './screens/Home';
 import Content from './screens/Content';
 import NavBar from './components/navbar';
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <NavBar />
       <Routes>
         <Route path="/*">
@@ -15,7 +16,7 @@ const App: React.FC = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
