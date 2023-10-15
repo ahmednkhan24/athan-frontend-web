@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/athan-frontend-web/static/css/main.84487ea8.css",
-    "main.js": "/athan-frontend-web/static/js/main.5801e592.js",
+    "main.css": "/athan-frontend-web/static/css/main.919a3d3d.css",
+    "main.js": "/athan-frontend-web/static/js/main.c89b3dfa.js",
     "index.html": "/athan-frontend-web/index.html",
-    "main.84487ea8.css.map": "/athan-frontend-web/static/css/main.84487ea8.css.map",
-    "main.5801e592.js.map": "/athan-frontend-web/static/js/main.5801e592.js.map"
+    "main.919a3d3d.css.map": "/athan-frontend-web/static/css/main.919a3d3d.css.map",
+    "main.c89b3dfa.js.map": "/athan-frontend-web/static/js/main.c89b3dfa.js.map"
   },
   "entrypoints": [
-    "static/css/main.84487ea8.css",
-    "static/js/main.5801e592.js"
+    "static/css/main.919a3d3d.css",
+    "static/js/main.c89b3dfa.js"
   ]
 }
