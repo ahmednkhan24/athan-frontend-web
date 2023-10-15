@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import styles from './prayer-item.module.css';
 
@@ -62,21 +61,15 @@ export const PrayerItem = ({
   type,
   onClick,
   disabled,
-}: PrayerItemProps) => {
-  const onClickItem = useCallback(() => {
-    onClick(id, getUpdatedType(type));
-  }, [id, onClick, type]);
-
-  return (
-    <ListGroup.Item
-      action
-      id={id}
-      variant={convertItemTypeToBootstrapType(type)}
-      onClick={onClickItem}
-      disabled={disabled}
-      className={styles.item}
-    >
-      {`${text}${convertItemTypeToTextContent(type)}`}
-    </ListGroup.Item>
-  );
-};
+}: PrayerItemProps) => (
+  <ListGroup.Item
+    action
+    id={id}
+    variant={convertItemTypeToBootstrapType(type)}
+    onClick={() => onClick(id, getUpdatedType(type))}
+    disabled={disabled}
+    className={styles.item}
+  >
+    {`${text}${convertItemTypeToTextContent(type)}`}
+  </ListGroup.Item>
+);
