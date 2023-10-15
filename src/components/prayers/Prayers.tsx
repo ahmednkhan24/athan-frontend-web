@@ -1,6 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 import {
   PrayerItem,
   PrayerItemProps,
@@ -53,12 +51,10 @@ export const Prayers: React.FC = () => {
   );
 
   return (
-    <Container>
-      <h1>content page</h1>
-      <Link to="/">Home</Link>
+    <div>
       {Object.values(itemsTable).map((item) => (
         <PrayerItem key={item.id} {...item} onClick={onClickItem} />
       ))}
-    </Container>
+    </div>
   );
 };
