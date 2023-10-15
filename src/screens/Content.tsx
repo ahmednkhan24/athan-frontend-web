@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import Prayers from 'components/prayers';
 
 const Content: React.FC = () => {
   return (
-    <div>
+    <Container>
       <h1>content page</h1>
       <Link to="/">Home</Link>
-    </div>
+      <Prayers />
+    </Container>
   );
 };
 
