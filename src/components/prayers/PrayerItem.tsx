@@ -1,7 +1,7 @@
 import ListGroup from 'react-bootstrap/ListGroup';
 import styles from './prayer-item.module.css';
 
-type BootStrapItemVariants = 'success' | 'danger' | 'warning' | 'light';
+type BootStrapItemVariants = 'success' | 'danger' | 'warning' | '';
 export type PrayerItemType = 'onTime' | 'missed' | 'madeUp' | undefined;
 export type PrayerItemText = 'Fajr' | 'Dhur' | 'Asr' | 'Maghreb' | 'Isha';
 export type PrayerItemId = Lowercase<PrayerItemText>;
@@ -25,7 +25,7 @@ const convertItemTypeToBootstrapType = (
     case 'madeUp':
       return 'warning';
     default:
-      return 'light';
+      return '';
   }
 };
 
