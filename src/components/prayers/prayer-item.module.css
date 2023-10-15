@@ -1,0 +1,7 @@
+.item {
+  padding: 20px;
+  margin: 20px 0px;
+  border-top-width: thin !important;
+  border: 1px solid #dbdbdb;
+  /* box-shadow: 0 0 5px 1px #dbdbdb; */
+}
