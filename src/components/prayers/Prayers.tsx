@@ -26,6 +26,7 @@ export const prayers: Omit<PrayerItemProps, 'onClick' | 'disabled'>[] = [
     text: 'Asr',
     type: undefined,
   },
+  { id: 'maghreb', text: 'Maghreb', type: undefined },
   {
     id: 'isha',
     text: 'Isha',
@@ -42,12 +43,12 @@ export const Prayers: React.FC = () => {
   );
 
   const onClickItem = useCallback(
-    (id: PrayerItemId, type: PrayerItemType) => {
-      const table = structuredClone(itemsTable);
-      table[id] = { ...table[id], type };
-      setItemsTable(table);
-    },
-    [itemsTable]
+    (id: PrayerItemId, type: PrayerItemType) =>
+      setItemsTable((prevTable) => ({
+        ...prevTable,
+        [id]: { ...prevTable[id], type },
+      })),
+    []
   );
 
   return (
