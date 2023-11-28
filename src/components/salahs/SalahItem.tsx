@@ -1,22 +1,22 @@
 import { memo, useCallback } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
-import styles from './prayer-item.module.css';
+import styles from './salah-item.module.css';
 
 type BootStrapItemVariants = 'success' | 'danger' | 'warning' | '';
-export type PrayerItemType = 'onTime' | 'missed' | 'madeUp' | undefined;
-export type PrayerItemText = 'Fajr' | 'Dhur' | 'Asr' | 'Maghreb' | 'Isha';
-export type PrayerItemId = Lowercase<PrayerItemText>;
+export type SalahItemType = 'onTime' | 'missed' | 'madeUp' | undefined;
+export type SalahItemText = 'Fajr' | 'Dhur' | 'Asr' | 'Maghreb' | 'Isha';
+export type SalahItemId = Lowercase<SalahItemText>;
 
-export type PrayerItemProps = {
-  id: PrayerItemId;
-  text: PrayerItemText;
-  type: PrayerItemType;
-  onClick: (id: PrayerItemId, type: PrayerItemType) => void;
+export type SalahItemProps = {
+  id: SalahItemId;
+  text: SalahItemText;
+  type: SalahItemType;
+  onClick: (id: SalahItemId, type: SalahItemType) => void;
   disabled?: boolean;
 };
 
 const convertItemTypeToBootstrapType = (
-  type: PrayerItemType
+  type: SalahItemType
 ): BootStrapItemVariants => {
   switch (type) {
     case 'onTime':
@@ -30,7 +30,7 @@ const convertItemTypeToBootstrapType = (
   }
 };
 
-const convertItemTypeToTextContent = (type: PrayerItemType) => {
+const convertItemTypeToTextContent = (type: SalahItemType) => {
   switch (type) {
     case 'onTime':
       return ' - On Time';
@@ -43,7 +43,7 @@ const convertItemTypeToTextContent = (type: PrayerItemType) => {
   }
 };
 
-const getUpdatedType = (type: PrayerItemType): PrayerItemType => {
+const getUpdatedType = (type: SalahItemType): SalahItemType => {
   switch (type) {
     case 'onTime':
       return 'missed';
@@ -56,8 +56,8 @@ const getUpdatedType = (type: PrayerItemType): PrayerItemType => {
   }
 };
 
-export const PrayerItem = memo(
-  ({ id, text, type, onClick, disabled }: PrayerItemProps) => {
+export const SalahItem = memo(
+  ({ id, text, type, onClick, disabled }: SalahItemProps) => {
     const onClickItem = useCallback(
       () => onClick(id, getUpdatedType(type)),
       [id, onClick, type]

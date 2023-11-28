@@ -1,16 +1,16 @@
 import React, { useState, useCallback } from 'react';
 import {
-  PrayerItem,
-  PrayerItemProps,
-  PrayerItemType,
-  PrayerItemId,
-} from './PrayerItem';
+  SalahItem,
+  SalahItemProps,
+  SalahItemType,
+  SalahItemId,
+} from './SalahItem';
 
 export type PrayerItemsTable = {
-  [key: string]: Omit<PrayerItemProps, 'onClick' | 'disabled'>;
+  [key: string]: Omit<SalahItemProps, 'onClick' | 'disabled'>;
 };
 
-export const prayers: Omit<PrayerItemProps, 'onClick' | 'disabled'>[] = [
+export const prayers: Omit<SalahItemProps, 'onClick' | 'disabled'>[] = [
   {
     id: 'fajr',
     text: 'Fajr',
@@ -43,7 +43,7 @@ export const Prayers: React.FC = () => {
   );
 
   const onClickItem = useCallback(
-    (id: PrayerItemId, type: PrayerItemType) =>
+    (id: SalahItemId, type: SalahItemType) =>
       setItemsTable((prevTable) => ({
         ...prevTable,
         [id]: { ...prevTable[id], type },
@@ -54,7 +54,7 @@ export const Prayers: React.FC = () => {
   return (
     <div>
       {Object.values(itemsTable).map((item) => (
-        <PrayerItem key={item.id} {...item} onClick={onClickItem} />
+        <SalahItem key={item.id} {...item} onClick={onClickItem} />
       ))}
     </div>
   );
