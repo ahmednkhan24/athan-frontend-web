@@ -1,0 +1,15 @@
+.datesContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.dateInputPicker {
+  display: flex;
+  padding: 0 10px;
+}
+
+.dateInputPicker > *:first-child {
+  margin-right: 10px;
+}

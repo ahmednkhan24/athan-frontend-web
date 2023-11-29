@@ -4,36 +4,24 @@ import {
   SalahItemProps,
   SalahItemType,
   SalahItemId,
+  SalahItemText,
 } from './SalahItem';
 import { Dates } from 'components/dates/Dates';
 
-export type PrayerItemsTable = {
-  [key: string]: Omit<SalahItemProps, 'onClick' | 'disabled'>;
-};
+type PrayerItem = Omit<SalahItemProps, 'onClick' | 'disabled'>;
 
-export const prayers: Omit<SalahItemProps, 'onClick' | 'disabled'>[] = [
-  {
-    id: 'fajr',
-    text: 'Fajr',
-    type: undefined,
-  },
-  {
-    id: 'dhur',
-    text: 'Dhur',
-    type: undefined,
-  },
-  {
-    id: 'asr',
-    text: 'Asr',
-    type: undefined,
-  },
-  { id: 'maghreb', text: 'Maghreb', type: undefined },
-  {
-    id: 'isha',
-    text: 'Isha',
-    type: undefined,
-  },
-];
+export type PrayerItemsTable = Record<SalahItemId, PrayerItem>;
+
+const capitalizeFirstLetter = (s: SalahItemId): SalahItemText =>
+  (s.charAt(0).toUpperCase() + s.slice(1)) as SalahItemText;
+
+const ids: SalahItemId[] = ['fajr', 'dhur', 'asr', 'maghreb', 'isha'];
+
+const prayers: PrayerItem[] = ids.map((id) => ({
+  id,
+  text: capitalizeFirstLetter(id),
+  type: undefined,
+}));
 
 export const Prayers: React.FC = () => {
   const [date, setDate] = useState(new Date());
