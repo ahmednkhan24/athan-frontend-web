@@ -8,6 +8,7 @@ import {
 import DatePicker from 'react-datepicker';
 import styles from './dates.module.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import { toast } from 'react-toastify';
 
 const addDays = (d: Date, days: number) => {
   const date = new Date(d);
@@ -45,10 +46,20 @@ export const Dates = memo(({ date, setDate }: DatesProps) => {
   }, [date, resetDate, setDate]);
 
   const onSelectDate = useCallback(
-    (selectedDate: Date | null) =>
-      !selectedDate || !isInThePast(selectedDate)
-        ? resetDate()
-        : setDate(selectedDate),
+    (selectedDate: Date | null) => {
+      if (!selectedDate) {
+        resetDate();
+        return;
+      }
+
+      if (!isInThePast(selectedDate)) {
+        resetDate();
+        toast.warn("You can't select a date in the future.");
+        return;
+      }
+
+      setDate(selectedDate);
+    },
     [resetDate, setDate]
   );
 
