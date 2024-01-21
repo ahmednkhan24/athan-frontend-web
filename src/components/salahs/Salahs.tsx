@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   SalahItem,
   SalahItemProps,
@@ -23,22 +23,37 @@ const prayers: PrayerItem[] = ids.map((id) => ({
   type: undefined,
 }));
 
+const defaultEmptyTable = prayers.reduce((table, item) => {
+  table[item.id] = item;
+  return table;
+}, {} as PrayerItemsTable);
+
+// new Date().toDateString();
+type DateString = string;
+const existingDataMap = new Map<DateString, PrayerItemsTable>();
+
 export const Prayers: React.FC = () => {
   const [date, setDate] = useState(new Date());
-  const [itemsTable, setItemsTable] = useState(
-    prayers.reduce((table, item) => {
-      table[item.id] = item;
-      return table;
-    }, {} as PrayerItemsTable)
-  );
+  const [itemsTable, setItemsTable] = useState(defaultEmptyTable);
+
+  useEffect(() => {
+    const existingData = existingDataMap.get(date.toDateString());
+    setItemsTable(existingData ? existingData : defaultEmptyTable);
+  }, [date]);
 
   const onClickItem = useCallback(
     (id: SalahItemId, type: SalahItemType) =>
-      setItemsTable((prevTable) => ({
-        ...prevTable,
-        [id]: { ...prevTable[id], type },
-      })),
-    []
+      setItemsTable((prevTable) => {
+        const updatedTable = {
+          ...prevTable,
+          [id]: { ...prevTable[id], type },
+        };
+
+        existingDataMap.set(date.toDateString(), updatedTable);
+
+        return updatedTable;
+      }),
+    [date]
   );
 
   return (
