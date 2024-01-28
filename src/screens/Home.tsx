@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import Container from 'react-bootstrap/Container';
 import type { RootState, AppDispatch } from 'store';
 import { fetchLocation } from 'store/location/locationThunks';
 import {
@@ -10,6 +9,7 @@ import {
   onLoginFailure,
   onLogout,
 } from 'store/auth/authActions';
+import Container from '@mui/material/Container';
 import { useComponentFirstMount } from 'hooks';
 
 const Home: React.FC = () => {
