@@ -1,9 +1,5 @@
 import React from 'react';
-import BootstrapContainer from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import { Link } from 'react-router-dom';
-
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -17,6 +13,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import MuiLink from '@mui/material/Link';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const darkTheme = createTheme({
@@ -28,35 +25,12 @@ const darkTheme = createTheme({
   },
 });
 
-export const NavBarOld: React.FC = () => {
-  return (
-    <Navbar bg="light" expand="lg">
-      <BootstrapContainer>
-        <Navbar.Brand as={Link} to="/">
-          Athan Web
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/content">
-              Content
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            Signed in as: <a href="#login">Mark Otto</a>
-          </Navbar.Text>
-        </Navbar.Collapse>
-      </BootstrapContainer>
-    </Navbar>
-  );
-};
-
 const pages = ['Content'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function NavBar() {
+  const navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -84,34 +58,25 @@ function NavBar() {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
+            {/* Desktop Home Page link */}
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-            {/* <Typography
-            variant="h6"
-            noWrap
-            href="/"
-            component="a"
-            color="textPrimary"
-            underline="none"
-            children={'Your Text Here'}
-          /> */}
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
+            <MuiLink
+              component={RouterLink}
+              to="/"
               sx={{
+                typography: 'h6',
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
                 textDecoration: 'none',
               }}
             >
-              LOGO
-            </Typography>
+              Athan Web
+            </MuiLink>
 
+            {/* Mobile hamburger menu for navigation */}
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
@@ -148,37 +113,41 @@ function NavBar() {
                 ))}
               </Menu>
             </Box>
+
+            {/* Mobile Home Page link */}
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            <Typography
-              variant="h5"
+            <MuiLink
+              component={RouterLink}
+              to="/"
               noWrap
-              component="a"
-              href="#app-bar-with-responsive-menu"
               sx={{
+                typography: 'h5',
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
                 flexGrow: 1,
-                fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
                 textDecoration: 'none',
               }}
             >
-              LOGO
-            </Typography>
+              Athan Web
+            </MuiLink>
+
+            {/* Desktop routing nav links */}
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
                   key={page}
-                  onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
+                  onClick={() => navigate(`/${page.toLowerCase()}`)}
                 >
                   {page}
                 </Button>
               ))}
             </Box>
 
+            {/* Desktop + Mobile right dropdown */}
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

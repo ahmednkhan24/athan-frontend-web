@@ -3,13 +3,12 @@ import React from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './screens/Home';
 import Content from './screens/Content';
-import NavBar, { NavBarOld } from './components/navbar/NavBar';
+import NavBar from './components/navbar';
 
 const App: React.FC = () => {
   return (
     <HashRouter>
       <NavBar />
-      <NavBarOld />
       <Routes>
         <Route path="/*">
           <Route index element={<Home />} />
