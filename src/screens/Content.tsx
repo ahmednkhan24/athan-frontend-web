@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import Container from '@mui/material/Container';
 import Salahs from 'components/salahs';
 
 const Content: React.FC = () => {

@@ -1,8 +1,16 @@
-import { memo, useCallback } from 'react';
-import ListGroup from 'react-bootstrap/ListGroup';
-import styles from './salah-item.module.css';
+import { memo, useCallback, useMemo } from 'react';
+import styled from '@emotion/styled';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
-type BootStrapItemVariants = 'success' | 'danger' | 'warning' | '';
+const Styled = {
+  AlertContainer: styled.div({
+    cursor: 'pointer',
+    padding: '20px 0',
+  }),
+};
+
+type MuiItemVariants = 'info' | 'success' | 'warning' | 'error';
 export type SalahItemType = 'onTime' | 'missed' | 'madeUp' | undefined;
 export type SalahItemText = 'Fajr' | 'Dhur' | 'Asr' | 'Maghreb' | 'Isha';
 export type SalahItemId = Lowercase<SalahItemText>;
@@ -15,18 +23,16 @@ export type SalahItemProps = {
   disabled?: boolean;
 };
 
-const convertItemTypeToBootstrapType = (
-  type: SalahItemType
-): BootStrapItemVariants => {
+const convertItemTypeToMuiType = (type: SalahItemType): MuiItemVariants => {
   switch (type) {
     case 'onTime':
       return 'success';
     case 'missed':
-      return 'danger';
+      return 'error';
     case 'madeUp':
       return 'warning';
     default:
-      return '';
+      return 'info';
   }
 };
 
@@ -63,17 +69,20 @@ export const SalahItem = memo(
       [id, onClick, type]
     );
 
+    const muiItem = useMemo(() => convertItemTypeToMuiType(type), [type]);
+
     return (
-      <ListGroup.Item
-        action
-        id={id}
-        variant={convertItemTypeToBootstrapType(type)}
-        onClick={onClickItem}
-        disabled={disabled}
-        className={styles.item}
-      >
-        {`${text}${convertItemTypeToTextContent(type)}`}
-      </ListGroup.Item>
+      <Styled.AlertContainer>
+        <Alert
+          variant={muiItem === 'info' ? 'outlined' : 'filled'}
+          severity={muiItem}
+          onClick={onClickItem}
+        >
+          <AlertTitle>{`${text}${convertItemTypeToTextContent(
+            type
+          )}`}</AlertTitle>
+        </Alert>
+      </Styled.AlertContainer>
     );
   }
 );
