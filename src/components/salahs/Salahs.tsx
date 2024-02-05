@@ -7,6 +7,7 @@ import {
   SalahItemText,
 } from './SalahItem';
 import { Dates } from 'components/dates/Dates';
+import dayjs, { Dayjs } from 'dayjs';
 
 type PrayerItem = Omit<SalahItemProps, 'onClick' | 'disabled'>;
 
@@ -28,16 +29,14 @@ const defaultEmptyTable = prayers.reduce((table, item) => {
   return table;
 }, {} as PrayerItemsTable);
 
-// new Date().toDateString();
-type DateString = string;
-const existingDataMap = new Map<DateString, PrayerItemsTable>();
+const existingDataMap = new Map<string, PrayerItemsTable>();
 
 export const Prayers: React.FC = () => {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState<Dayjs>(dayjs());
   const [itemsTable, setItemsTable] = useState(defaultEmptyTable);
 
   useEffect(() => {
-    const existingData = existingDataMap.get(date.toDateString());
+    const existingData = existingDataMap.get(date.toDate().toDateString());
     setItemsTable(existingData ? existingData : defaultEmptyTable);
   }, [date]);
 
@@ -49,7 +48,7 @@ export const Prayers: React.FC = () => {
           [id]: { ...prevTable[id], type },
         };
 
-        existingDataMap.set(date.toDateString(), updatedTable);
+        existingDataMap.set(date.toDate().toDateString(), updatedTable);
 
         return updatedTable;
       }),

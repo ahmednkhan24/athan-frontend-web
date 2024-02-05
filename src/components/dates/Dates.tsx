@@ -1,93 +1,80 @@
 import { Dispatch, SetStateAction, memo, useCallback } from 'react';
-import Button from 'react-bootstrap/Button';
-import {
-  CalendarXFill,
-  ArrowLeftSquareFill,
-  ArrowRightSquareFill,
-} from 'react-bootstrap-icons';
-import DatePicker from 'react-datepicker';
-import styles from './dates.module.css';
-import 'react-datepicker/dist/react-datepicker.css';
-import { toast } from 'react-toastify';
+import styled from '@emotion/styled';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import dayjs, { Dayjs } from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
 
-const addDays = (d: Date, days: number) => {
-  const date = new Date(d);
-  date.setDate(date.getDate() + days);
-  return date;
+// icons
+import IconButton from '@mui/material/IconButton';
+import ArrowLeftIcon from '@mui/icons-material/ArrowBack';
+import ArrowRightIcon from '@mui/icons-material/ArrowForward';
+import CalendarReset from '@mui/icons-material/EventRepeat';
+
+dayjs.extend(isToday);
+
+const Styled = {
+  DateContainer: styled.div({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 20,
+  }),
 };
-
-const subtractDays = (d: Date, days: number) => {
-  const date = new Date(d);
-  date.setDate(date.getDate() - days);
-  return date;
-};
-
-const isInThePast = (d: Date) => d.getTime() <= new Date().getTime();
-
-const isToday = (d: Date) => d.toDateString() === new Date().toDateString();
 
 export interface DatesProps {
-  date: Date;
-  setDate: Dispatch<SetStateAction<Date>>;
+  date: Dayjs;
+  setDate: Dispatch<SetStateAction<Dayjs>>;
 }
 
 export const Dates = memo(({ date, setDate }: DatesProps) => {
-  const resetDate = useCallback(() => setDate(new Date()), [setDate]);
+  const resetDate = useCallback(() => setDate(dayjs()), [setDate]);
 
   const goBackOneDay = useCallback(
-    () => setDate(() => subtractDays(date, 1)),
-    [date, setDate]
+    () => setDate((d) => d.subtract(1, 'day')),
+    [setDate]
   );
 
-  const goForwardOneDay = useCallback(() => {
-    const updatedDate = addDays(date, 1);
-    if (isInThePast(updatedDate)) setDate(updatedDate);
-    else resetDate();
-  }, [date, resetDate, setDate]);
+  const goForwardOneDay = useCallback(
+    () => setDate((d) => d.add(1, 'day')),
+    [setDate]
+  );
 
   const onSelectDate = useCallback(
-    (selectedDate: Date | null) => {
-      if (!selectedDate) {
+    (selectedDate: Dayjs | null) => {
+      if (selectedDate) {
+        setDate(selectedDate);
+      } else {
         resetDate();
-        return;
       }
-
-      if (!isInThePast(selectedDate)) {
-        resetDate();
-        toast.warn("You can't select a date in the future.");
-        return;
-      }
-
-      setDate(selectedDate);
     },
     [resetDate, setDate]
   );
 
   return (
-    <div className={styles.datesContainer}>
-      <Button variant="light" onClick={goBackOneDay}>
-        <ArrowLeftSquareFill size={35} />
-      </Button>
-      <span className={styles.dateInputPicker}>
-        <DatePicker
-          withPortal
-          className="form-control"
-          selected={date}
-          onChange={onSelectDate}
+    <Styled.DateContainer>
+      <IconButton size="large" onClick={goBackOneDay}>
+        <ArrowLeftIcon />
+      </IconButton>
+      <div>
+        <MobileDatePicker
+          value={dayjs(date)}
+          closeOnSelect
+          disableFuture
+          onAccept={onSelectDate}
         />
-        {!isToday(date) && (
-          <Button variant="light" onClick={resetDate}>
-            <CalendarXFill size={20} />
-          </Button>
+        {!date.isToday() && (
+          <IconButton size="large" onClick={resetDate}>
+            <CalendarReset />
+          </IconButton>
         )}
-      </span>
-      <Button
-        variant="light"
+      </div>
+      <IconButton
+        size="large"
+        disabled={date.isToday()}
         onClick={goForwardOneDay}
-        disabled={isToday(date)}
       >
-        <ArrowRightSquareFill size={35} />
-      </Button>
-    </div>
+        <ArrowRightIcon />
+      </IconButton>
+    </Styled.DateContainer>
   );
 });
