@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/athan-frontend-web/static/js/main.1dd14fb4.js",
+    "main.js": "/athan-frontend-web/static/js/main.7353b319.js",
     "index.html": "/athan-frontend-web/index.html",
-    "main.1dd14fb4.js.map": "/athan-frontend-web/static/js/main.1dd14fb4.js.map"
+    "main.7353b319.js.map": "/athan-frontend-web/static/js/main.7353b319.js.map"
   },
   "entrypoints": [
-    "static/js/main.1dd14fb4.js"
+    "static/js/main.7353b319.js"
   ]
 }
