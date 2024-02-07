@@ -43,11 +43,19 @@ const existingDataMap = new Map<string, SalahDataTable>();
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Loading = () => (
-  <Stack spacing={1}>
-    <Skeleton variant="rounded" height={60} />
-    {Object.keys(defaultEmptyTable).map(() => (
-      <Skeleton variant="rounded" height={60} />
-    ))}
+  <Stack spacing={4}>
+    <Skeleton
+      sx={{
+        visibility: 'hidden',
+      }}
+      variant="rounded"
+      height={60}
+    />
+    {Array(ids.length)
+      .fill(null)
+      .map((_, idx) => (
+        <Skeleton key={idx} variant="rounded" height={60} />
+      ))}
   </Stack>
 );
 
