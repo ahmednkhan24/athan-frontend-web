@@ -1,1 +1,1 @@
-export { Prayers as default } from './Salahs';
+export { Salahs as default } from './Salahs';

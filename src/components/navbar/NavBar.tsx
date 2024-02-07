@@ -28,7 +28,7 @@ const darkTheme = createTheme({
 const pages = ['Content'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function NavBar() {
+export function NavBar() {
   const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -183,5 +183,3 @@ function NavBar() {
     </ThemeProvider>
   );
 }
-
-export default NavBar;

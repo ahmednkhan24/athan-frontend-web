@@ -6,32 +6,32 @@ import {
   SalahItemId,
   SalahItemText,
 } from './SalahItem';
-import { Dates } from 'components/dates/Dates';
+import { Dates } from 'components/dates';
 import dayjs, { Dayjs } from 'dayjs';
 
-type PrayerItem = Omit<SalahItemProps, 'onClick' | 'disabled'>;
+type SalahData = Omit<SalahItemProps, 'onClick' | 'disabled'>;
 
-export type PrayerItemsTable = Record<SalahItemId, PrayerItem>;
+export type SalahDataTable = Record<SalahItemId, SalahData>;
 
 const capitalizeFirstLetter = (s: SalahItemId): SalahItemText =>
   (s.charAt(0).toUpperCase() + s.slice(1)) as SalahItemText;
 
 const ids: SalahItemId[] = ['fajr', 'dhur', 'asr', 'maghreb', 'isha'];
 
-const prayers: PrayerItem[] = ids.map((id) => ({
+const salahs: SalahData[] = ids.map((id) => ({
   id,
   text: capitalizeFirstLetter(id),
   type: undefined,
 }));
 
-const defaultEmptyTable = prayers.reduce((table, item) => {
+const defaultEmptyTable = salahs.reduce((table, item) => {
   table[item.id] = item;
   return table;
-}, {} as PrayerItemsTable);
+}, {} as SalahDataTable);
 
-const existingDataMap = new Map<string, PrayerItemsTable>();
+const existingDataMap = new Map<string, SalahDataTable>();
 
-export const Prayers: React.FC = () => {
+export const Salahs: React.FC = () => {
   const [date, setDate] = useState<Dayjs>(dayjs());
   const [itemsTable, setItemsTable] = useState(defaultEmptyTable);
 
