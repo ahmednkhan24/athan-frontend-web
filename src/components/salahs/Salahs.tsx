@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import {
   SalahItem,
-  SalahItemProps,
   SalahItemType,
   SalahItemId,
   SalahItemText,
@@ -11,16 +10,13 @@ import { Dates } from 'components/dates';
 import dayjs, { Dayjs } from 'dayjs';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
+import { API, SalahData, SalahDataTable } from './data';
 
 const Styled = {
   Container: styled.div({
     marginTop: 20,
   }),
 };
-
-type SalahData = Omit<SalahItemProps, 'onClick' | 'disabled'>;
-
-export type SalahDataTable = Record<SalahItemId, SalahData>;
 
 const capitalizeFirstLetter = (s: SalahItemId): SalahItemText =>
   (s.charAt(0).toUpperCase() + s.slice(1)) as SalahItemText;
@@ -37,10 +33,6 @@ const defaultEmptyTable = salahs.reduce((table, item) => {
   table[item.id] = item;
   return table;
 }, {} as SalahDataTable);
-
-const existingDataMap = new Map<string, SalahDataTable>();
-
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Loading = () => (
   <Stack spacing={4}>
@@ -65,18 +57,14 @@ export const Salahs: React.FC = () => {
   const [itemsTable, setItemsTable] = useState(defaultEmptyTable);
 
   useEffect(() => {
-    const existingData = existingDataMap.get(date.toDate().toDateString());
-    setItemsTable(existingData ? existingData : defaultEmptyTable);
-  }, [date]);
-
-  useEffect(() => {
-    const fetchData = async () => {
+    const fetchItemsTableData = async () => {
       setLoading(true);
-      await wait(1000);
+      const data = await API.get(date);
       setLoading(false);
+      setItemsTable(data ? data : defaultEmptyTable);
     };
 
-    fetchData();
+    fetchItemsTableData();
   }, [date]);
 
   const onClickItem = useCallback(
@@ -87,7 +75,7 @@ export const Salahs: React.FC = () => {
           [id]: { ...prevTable[id], type },
         };
 
-        existingDataMap.set(date.toDate().toDateString(), updatedTable);
+        API.add(date, updatedTable);
 
         return updatedTable;
       }),
