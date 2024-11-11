@@ -5,10 +5,21 @@ import {
   useState,
   useCallback,
 } from 'react';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { CredentialResponse, googleLogout } from '@react-oauth/google';
+
+interface GoogleJwtDecoded extends JwtPayload {
+  email?: string;
+  email_verified?: boolean;
+  name?: string;
+  given_name?: string; // first name
+  family_name?: string; // last name
+  picture?: string;
+}
 
 interface GoogleAuth {
   jwt: string;
+  decoded: GoogleJwtDecoded;
 }
 
 interface Auth {
@@ -21,6 +32,7 @@ interface Auth {
 const defaultAuth: Auth = {
   googleAuth: {
     jwt: '',
+    decoded: {},
   },
   onLoginSuccess: () => {},
   onLoginFailure: () => {},
@@ -40,14 +52,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     defaultAuth.googleAuth
   );
 
-  const onLoginSuccess = useCallback(
-    (googleLoginResponse: CredentialResponse) => {
-      if (googleLoginResponse.credential) {
-        setGoogleAuth({ jwt: googleLoginResponse.credential });
-      }
-    },
-    []
-  );
+  const onLoginSuccess = useCallback(({ credential }: CredentialResponse) => {
+    if (!credential) return;
+
+    const decoded: GoogleJwtDecoded = jwtDecode(credential);
+    if (!decoded) return;
+
+    setGoogleAuth({ jwt: credential, decoded });
+  }, []);
 
   const onLoginFailure = useCallback(() => {}, []);
 
