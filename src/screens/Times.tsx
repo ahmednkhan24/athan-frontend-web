@@ -1,9 +1,7 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { useSelector } from 'react-redux';
 import Container from '@mui/material/Container';
-import { RootState } from 'store';
-import { LocationState } from 'store/location/locationSlice';
+import { useLocationContext, LocationState } from 'contexts/locationContext';
 
 interface SalahTimes {
   Fajr: string;
@@ -27,7 +25,7 @@ async function getSalahTimes({ latitude, longitude }: LocationState) {
 }
 
 const Times: React.FC = () => {
-  const location = useSelector((state: RootState) => state.locationState);
+  const location = useLocationContext();
   const { data: times, isLoading } = useQuery({
     queryKey: ['salahTimes'],
     queryFn: async () => getSalahTimes(location),

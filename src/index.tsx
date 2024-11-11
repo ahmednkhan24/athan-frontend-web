@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from 'react-redux';
+import { LocationProvider } from './contexts/locationContext';
 import CssBaseline from '@mui/material/CssBaseline';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -25,7 +26,9 @@ root.render(
       <Provider store={store}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <CssBaseline />
-          <App />
+          <LocationProvider>
+            <App />
+          </LocationProvider>
         </LocalizationProvider>
       </Provider>
     </QueryClientProvider>
