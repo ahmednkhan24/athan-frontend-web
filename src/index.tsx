@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from 'react-redux';
 import CssBaseline from '@mui/material/CssBaseline';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -11,6 +12,8 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const queryClient = new QueryClient();
+
 /*
  * In order to detect any problems with the code and provide warnings about them,
  * StrictMode renders components twice (in dev mode but not in production mode)
@@ -18,11 +21,13 @@ const root = ReactDOM.createRoot(
  */
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <CssBaseline />
-        <App />
-      </LocalizationProvider>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <CssBaseline />
+          <App />
+        </LocalizationProvider>
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

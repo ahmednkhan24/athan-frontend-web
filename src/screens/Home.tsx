@@ -25,6 +25,9 @@ const Home: React.FC = () => {
     <Container>
       <h1>Home page</h1>
       <Link to="/content">Content</Link>
+      <br />
+      <Link to="/times">Times</Link>
+      <br />
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
         buttonText="Login to Athan Web"
@@ -33,6 +36,8 @@ const Home: React.FC = () => {
         isSignedIn={true}
         cookiePolicy={'single_host_origin'}
       />
+      <br />
+      <br />
       <GoogleLogout
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
         buttonText="Logout of Athan Web"
