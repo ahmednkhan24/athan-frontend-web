@@ -8,7 +8,7 @@ import {
 import {
   defaultLocation as defaultLocationUtil,
   getCurrentLocationAsync,
-} from 'utils/locationUtils';
+} from './locationUtils';
 
 export interface LocationState {
   latitude: string;
